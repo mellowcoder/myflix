@@ -25,6 +25,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'pry'
   gem 'shoulda-matchers'
   gem 'simplecov', '~> 0.8.2'
   gem 'fabrication', '~> 2.11.2'

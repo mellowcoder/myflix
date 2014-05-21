@@ -6,6 +6,8 @@ class QueueItem < ActiveRecord::Base
   delegate :title, to: :video, prefix: :video
   delegate :name, to: :category, prefix: :category
   
+  validates_numericality_of :position, {only_integer: true}
+  
   def rating
     review = Review.where(user_id: user.id, video_id: video.id).order(created_at: :desc).first
     review.rating if review

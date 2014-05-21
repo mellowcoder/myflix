@@ -7,9 +7,7 @@ Myflix::Application.routes.draw do
   get 'my_queue', to: "queue_items#index"
   
   resources :videos, only: [:index, :show] do
-    collection do 
-      get 'search', to: 'videos#search'
-    end
+    get 'search', on: :collection
     resources :reviews, only: [:create]
   end
     
@@ -17,7 +15,9 @@ Myflix::Application.routes.draw do
   resources :users, only: [:new, :create, :show]
   resources :sessions, only: [:create]
 
-  resources :queue_items, only: [:index, :create, :destroy]
+  resources :queue_items, only: [:index, :create, :destroy] do
+    put 'update_position', on: :collection
+  end
   
   get 'ui(/:action)', controller: 'ui'
 end
