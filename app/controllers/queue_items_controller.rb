@@ -16,8 +16,8 @@ class QueueItemsController < ApplicationController
     redirect_to my_queue_path
   end
   
-  def update_position
-    update_queue_item_positions
+  def update_queue
+    update_queue_items
     redirect_to my_queue_path
   rescue
     flash[:error] = "Invalid position numbers"
@@ -38,7 +38,7 @@ class QueueItemsController < ApplicationController
     current_user.queue_items.map(&:video).include?(video)
   end
   
-  def update_queue_item_positions
+  def update_queue_items
     QueueItem.transaction do
       params[:queue_items].keys.each do |key|
         item = QueueItem.find(key)

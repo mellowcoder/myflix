@@ -16,7 +16,7 @@ Myflix::Application.routes.draw do
   resources :sessions, only: [:create]
 
   resources :queue_items, only: [:index, :create, :destroy] do
-    put 'update_position', on: :collection
+    put 'update_queue', on: :collection
   end
   
   get 'ui(/:action)', controller: 'ui'

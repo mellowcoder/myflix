@@ -90,22 +90,22 @@ describe QueueItemsController do
       
     end
     
-    describe "PUT #update_position" do
+    describe "PUT #update_queue" do
       context "with valid inputs" do
         let(:item_a) {Fabricate(:queue_item, user: current_user, position: 1)}
         let(:item_b) {Fabricate(:queue_item, user: current_user, position: 2)}
         it "redirects to the my queue page" do
-          put :update_position, queue_items: {item_a.id => {position: 2}, item_b.id => {position: 1}}
+          put :update_queue, queue_items: {item_a.id => {position: 2}, item_b.id => {position: 1}}
           expect(response).to redirect_to(my_queue_path)
         end
       
         it "saves the queue items with updated positions" do
-          put :update_position, queue_items: {item_a.id => {position: 2}, item_b.id => {position: 1}}
+          put :update_queue, queue_items: {item_a.id => {position: 2}, item_b.id => {position: 1}}
           expect(current_user.queue_items).to eq([item_b, item_a])
         end
       
         it "resets the queue postions to be in sequential" do
-          put :update_position, queue_items: {item_a.id => {position: 7}, item_b.id => {position: 3}}
+          put :update_queue, queue_items: {item_a.id => {position: 7}, item_b.id => {position: 3}}
           expect(current_user.queue_items.map(&:position)).to eq([1, 2])        
         end
       end
@@ -114,16 +114,16 @@ describe QueueItemsController do
         let(:item_a) {Fabricate(:queue_item, user: current_user, position: 1)}
         let(:item_b) {Fabricate(:queue_item, user: current_user, position: 2)}
         it "redirects to the my queue page" do
-          put :update_position, queue_items: {item_a.id => {position: 1}, item_b.id => {position: 2.5}}
+          put :update_queue, queue_items: {item_a.id => {position: 1}, item_b.id => {position: 2.5}}
           expect(response).to redirect_to(my_queue_path)
         end
         it "sets the flash error message" do
-          put :update_position, queue_items: {item_a.id => {position: 1}, item_b.id => {position: 2.5}}
+          put :update_queue, queue_items: {item_a.id => {position: 1}, item_b.id => {position: 2.5}}
           expect(flash[:error]).to be_present
         end
         it "does not change the queue items" do
           item_c = Fabricate(:queue_item, user: current_user, position: 3)
-          put :update_position, queue_items: {item_a.id => {position: 2}, item_b.id => {position: 1}, item_c.id => {position: 3.5}}
+          put :update_queue, queue_items: {item_a.id => {position: 2}, item_b.id => {position: 1}, item_c.id => {position: 3.5}}
           expect(item_a.reload.position).to eq(1)
         end
         
@@ -136,7 +136,7 @@ describe QueueItemsController do
           tom = Fabricate(:user)
           toms_item1 = Fabricate(:queue_item, user: tom, position: 1)
           toms_item2 = Fabricate(:queue_item, user: tom, position: 2)
-          put :update_position, queue_items: {toms_item2.id => {position: 1}, item_a.id => {position: 2}, item_b.id => {position: 3}}
+          put :update_queue, queue_items: {toms_item2.id => {position: 1}, item_a.id => {position: 2}, item_b.id => {position: 3}}
           expect(toms_item2.reload.position).to eq(2)        
         end 
         
@@ -171,10 +171,10 @@ describe QueueItemsController do
       end
     end
     
-    describe "PUT #update_position" do
+    describe "PUT #update_queue" do
       it "redirects to the sign in page" do
         item = Fabricate(:queue_item)
-        put :update_position, queue_items: {item.id => {position: 2}}
+        put :update_queue, queue_items: {item.id => {position: 2}}
         expect(response).to redirect_to(sign_in_path)
       end
     end
