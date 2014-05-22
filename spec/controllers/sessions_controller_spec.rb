@@ -9,7 +9,6 @@ describe SessionsController do
         get :new
         expect(response).to render_template(:new)
       end
-      
     end
     describe "POST #create" do
       context "valid credentials" do
