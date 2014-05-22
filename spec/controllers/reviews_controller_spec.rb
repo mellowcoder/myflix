@@ -2,11 +2,10 @@ require 'spec_helper'
 
 describe ReviewsController do
   context "for an authenticated user" do
+    before { login_current_user }
+
     let(:video) {Fabricate(:video)}
     let(:user) {Fabricate(:user)}
-    before do
-      session[:user_id] = user.id
-    end
     
     context "with valid inputs" do
       before {post :create, review: {rating: 2, content: 'My Review'}, video_id: video.id}
@@ -20,7 +19,7 @@ describe ReviewsController do
         expect(Review.first.video).to eq(video)
       end
       it "creates a review with the associated user" do
-        expect(Review.first.user).to eq(user)
+        expect(Review.first.user).to eq(current_user)
       end
     end
     context "with invalid inputs" do

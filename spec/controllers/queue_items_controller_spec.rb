@@ -3,10 +3,7 @@ require 'spec_helper'
 describe QueueItemsController do
 
   context "with an authenticated user" do
-    let(:current_user) {Fabricate(:user)}
-    before do
-      session[:user_id] = current_user.id
-    end
+    before { login_current_user }
     describe "GET #index" do
       
       before do

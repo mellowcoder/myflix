@@ -4,10 +4,7 @@ describe VideosController do
   let(:video) {Fabricate(:video)}
   
   context "for an authenticated user" do
-    before do
-      user = Fabricate(:user)
-      session[:user_id] = user.id
-    end
+    before { login_current_user }
 
     describe "GET #index" do
       it "assigns @catgories" do

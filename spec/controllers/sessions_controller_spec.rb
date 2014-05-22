@@ -43,10 +43,8 @@ describe SessionsController do
   end
   
   context "user is authenticated" do
-    before do
-      user = Fabricate(:user)
-      session[:user_id] = user.id
-    end
+    before { login_current_user }
+
     describe "GET #new" do
       it "should redirect to home page" do
         get :new
