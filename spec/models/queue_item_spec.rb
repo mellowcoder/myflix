@@ -53,7 +53,7 @@ describe QueueItem do
       expect(Review.first.rating).to eq(4)
     end
     
-    it "it removes the review if the rating is cleared for an existing review" do
+    it "it clears the review if the rating is cleared for an existing review" do
       user = Fabricate(:user)
       video = Fabricate(:video)
       review = Fabricate(:review, user: user, video: video, rating: 2)
@@ -68,6 +68,14 @@ describe QueueItem do
       queue_item = Fabricate(:queue_item, user: user, video: video)
       queue_item.rating = 4
       expect(Review.first.rating).to eq(4)
+    end
+    
+    it "does not create a review if the rating is blank" do
+      user = Fabricate(:user)
+      video = Fabricate(:video)
+      queue_item = Fabricate(:queue_item, user: user, video: video)
+      queue_item.rating = ''
+      expect(Review.count).to eq(0)
     end
     
   end

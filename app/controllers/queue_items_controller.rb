@@ -51,4 +51,3 @@ class QueueItemsController < ApplicationController
 
 end
 
-# , ratings: params[:queue_items][key]["rating"]
