@@ -33,7 +33,7 @@ describe QueueItem do
   describe "#rating" do
     it "returns the rating from the review if the user has revied the associated video" do
       queue_item = Fabricate(:queue_item)
-      review = Fabricate(:review, video: queue_item.video, user: queue_item.user, rating: 4)
+      Fabricate(:review, video: queue_item.video, user: queue_item.user, rating: 4)
       expect(queue_item.rating).to eq(4)
     end
     
@@ -41,6 +41,35 @@ describe QueueItem do
       queue_item = Fabricate(:queue_item)
       expect(queue_item.rating).to be_nil
     end
+  end
+  
+  describe "#rating=" do
+    it "updates the rating of review if the review exists" do
+      user = Fabricate(:user)
+      video = Fabricate(:video)
+      review = Fabricate(:review, user: user, video: video, rating: 2)
+      queue_item = Fabricate(:queue_item, user: user, video: video)
+      queue_item.rating = 4
+      expect(Review.first.rating).to eq(4)
+    end
+    
+    it "it removes the review if the rating is cleared for an existing review" do
+      user = Fabricate(:user)
+      video = Fabricate(:video)
+      review = Fabricate(:review, user: user, video: video, rating: 2)
+      queue_item = Fabricate(:queue_item, user: user, video: video)
+      queue_item.rating = nil
+      expect(Review.first.rating).to be_nil
+    end 
+    
+    it "creates a review and sets the rating if it does not already exist" do
+      user = Fabricate(:user)
+      video = Fabricate(:video)
+      queue_item = Fabricate(:queue_item, user: user, video: video)
+      queue_item.rating = 4
+      expect(Review.first.rating).to eq(4)
+    end
+    
   end
   
   
