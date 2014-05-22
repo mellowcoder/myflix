@@ -19,7 +19,7 @@ class QueueItemsController < ApplicationController
   def update_queue
     update_queue_items
     redirect_to my_queue_path
-  rescue
+  rescue ActiveRecord::RecordInvalid
     flash[:error] = "Invalid position numbers"
     redirect_to my_queue_path
   end
@@ -39,10 +39,10 @@ class QueueItemsController < ApplicationController
   end
   
   def update_queue_items
-    QueueItem.transaction do
-      params[:queue_items].keys.each do |key|
+    ActiveRecord::Base.transaction do
+      params[:queue_items].each_pair do |key, item_data|
         item = QueueItem.find(key)
-        item.update_attributes!(position: params[:queue_items][key]["position"]) if item.user == current_user
+        item.update_attributes!(position: item_data["position"], rating: item_data["rating"]) if item.user == current_user
       end
         current_user.normalize_queue_item_positions
     end
@@ -50,3 +50,5 @@ class QueueItemsController < ApplicationController
 
 
 end
+
+# , ratings: params[:queue_items][key]["rating"]

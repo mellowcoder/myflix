@@ -107,7 +107,7 @@ describe QueueItemsController do
         it "resets the queue postions to be in sequential" do
           put :update_queue, queue_items: {item_a.id => {position: 7}, item_b.id => {position: 3}}
           expect(current_user.queue_items.map(&:position)).to eq([1, 2])        
-        end
+        end        
       end
       
       context "with invalid inputs" do
