@@ -12,7 +12,7 @@ class QueueItemsController < ApplicationController
   
   def destroy
     item = current_user.queue_items.where(id: params[:id]).first
-    item.destroy && current_user.normalize_queue_item_positions if item
+    item.destroy && current_user.queue.normalize_queue_item_positions if item
     redirect_to my_queue_path
   end
   
@@ -44,7 +44,7 @@ class QueueItemsController < ApplicationController
         item = QueueItem.find(key)
         item.update_attributes!(position: item_data["position"], rating: item_data["rating"]) if item.user == current_user
       end
-        current_user.normalize_queue_item_positions
+        current_user.queue.normalize_queue_item_positions
     end
   end
 

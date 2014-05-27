@@ -9,11 +9,5 @@ class User < ActiveRecord::Base
   def queue
     @queue ||= MyQueue.new(self)
   end
-  
-  def normalize_queue_item_positions
-    queue_items.each_with_index do |item, index|
-      item.update_attributes(position: index+1)
-    end
-  end
-  
+
 end
