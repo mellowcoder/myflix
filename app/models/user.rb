@@ -5,7 +5,10 @@ class User < ActiveRecord::Base
   
   validates_presence_of :full_name, :email
   validates_uniqueness_of :email
-
+  
+  def queue
+    @queue ||= MyQueue.new(self)
+  end
   
   def normalize_queue_item_positions
     queue_items.each_with_index do |item, index|
