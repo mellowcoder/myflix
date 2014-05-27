@@ -33,6 +33,7 @@ group :test do
   gem 'capybara', '~> 2.1.0'
   gem 'capybara-webkit', '~> 1.1.1'
   gem 'database_cleaner', '~> 1.3.0'
+  gem 'launchy', '~> 2.4.2'
 end
 
 group :production do
