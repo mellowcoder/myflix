@@ -20,17 +20,25 @@ drama = Category.create({name: 'TV Dramas'})
                small_cover_url: 'covers/monk.jpg', large_cover_url: 'covers/monk_large.jpg', category: drama}])
 end
 
-user1 = User.create(email: 'rebert@critics.com', full_name: 'Roger Ebert', password: 'secret')
-user2 = User.create(email: 'wshatner@stars.com', full_name: 'William Shatner', password: 'secret')
-user3 = User.create(email: 'jdoe@public.com', full_name: 'John Doe', password: 'secret')
+ebert = User.create(email: 'rebert@critics.com', full_name: 'Roger Ebert', password: 'secret')
+shatner = User.create(email: 'wshatner@stars.com', full_name: 'William Shatner', password: 'secret')
+doe = User.create(email: 'jdoe@public.com', full_name: 'John Doe', password: 'secret')
 
 futurama1 = Video.search_by_title("Futurama 1").first
+futurama2 = Video.search_by_title("Futurama 2").first
 
-Review.create(video: futurama1, user: user1, rating: 2, content: "This is the text of the first review. Critics panned this episode.")
-Review.create(video: futurama1, user: user2, rating: 5, content: "This is the text of the second review.  William Shatner loves Futurama")
-Review.create(video: futurama1, user: user3, rating: 4, content: "This is the text of the last review. The general public enjoyed it.")
+Review.create(video: futurama1, user: ebert, rating: 2, content: "This is the text of the first review. Critics panned this episode.")
+Review.create(video: futurama1, user: shatner, rating: 5, content: "This is the text of the second review.  William Shatner loves Futurama")
+Review.create(video: futurama1, user: doe, rating: 4, content: "This is the text of the last review. The general public enjoyed it.")
 
 monk1 = Video.search_by_title("Monk 1").first
+monk2 = Video.search_by_title("Monk 2").first
 
-QueueItem.create(video: futurama1, user: user2, position: 1)
-QueueItem.create(video: monk1, user: user2, position: 2)
+QueueItem.create(video: futurama2, user: ebert, position: 1)
+QueueItem.create(video: monk2, user: ebert, position: 2)
+QueueItem.create(video: futurama1, user: shatner, position: 1)
+QueueItem.create(video: monk1, user: shatner, position: 2)
+
+Relationship.create(follower: shatner, followed: ebert)
+Relationship.create(follower: shatner, followed: doe)
+Relationship.create(follower: doe, followed: ebert)

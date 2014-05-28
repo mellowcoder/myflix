@@ -10,7 +10,14 @@ describe MyQueue do
       expect(user.queue.items).to eq(user.queue_items)
     end
   end
-
+  
+  describe "count" do
+    it "returns a count of the items in the queue" do
+      Fabricate(:queue_item, user: user, video: video)
+      expect(user.queue.count).to eq(1)
+    end
+  end
+  
   describe "video_exists_in_queue?" do
     it "returns true of the video is already in the queue" do
       Fabricate(:queue_item, user: user, video: video)

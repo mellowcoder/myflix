@@ -2,6 +2,28 @@ require 'spec_helper'
 
 describe UsersController do
 
+  describe "GET #show" do
+    let(:user) {Fabricate(:user)}
+    context "for an authenticated user" do
+      before do
+        Fabricate(:review, user: user)
+        Fabricate(:queue_item, user: user)
+        login_current_user
+        get :show, id: user
+      end
+      
+      it "assigns @user" do
+        expect(assigns(:user)).to eq(user)
+      end      
+    end
+    
+    context "for an un-authenticated user" do
+      it_behaves_like "require_sign_in" do 
+        let(:action) {get :show, id: 1}
+      end
+    end 
+  end
+  
   describe "GET #new" do
     it "assigns @user" do 
       get :new
