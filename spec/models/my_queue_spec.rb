@@ -14,13 +14,13 @@ describe MyQueue do
   describe "video_exists_in_queue?" do
     it "returns true of the video is already in the queue" do
       Fabricate(:queue_item, user: user, video: video)
-      expect(user.queue.video_exists_in_queue?(video)).to eq(true)
+      expect(user.queue.video_exists_in_queue?(video)).to be_true
     end
   
     it "returns false if the video is not in the queue" do
       Fabricate(:queue_item, user: user, video: video)
       other_video = Fabricate(:video)
-      expect(user.queue.video_exists_in_queue?(other_video)).to eq(false)
+      expect(user.queue.video_exists_in_queue?(other_video)).to be_false
     end
   end
 

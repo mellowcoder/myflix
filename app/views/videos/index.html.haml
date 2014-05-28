@@ -1,3 +1,4 @@
+%p Categories: #{Category.count} Videos: #{Video.count} Users: #{User.count}
 - @categories.each do |category|
   %article.video_category
     %header
@@ -5,6 +6,6 @@
     .videos.row
       - category.recent_videos.each do |video|
         .video.col-sm-2
-          = link_to video, nil do
+          = link_to video, {id: "video_#{video.id}"} do
             %img(src="#{image_url video.small_cover_url}")
 
