@@ -15,7 +15,7 @@ Myflix::Application.routes.draw do
   resources :categories, only: [:show]
   resources :users, only: [:new, :create, :show]
   resources :sessions, only: [:create]
-  resources :followed_relationships, only: [:destroy]
+  resources :followed_relationships, only: [:create, :destroy]
   
   resources :queue_items, only: [:index, :create, :destroy] do
     put 'update_queue', on: :collection

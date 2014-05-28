@@ -6,14 +6,19 @@ class User < ActiveRecord::Base
   has_many :followed_relations, class_name: "Relationship", foreign_key: :follower_id
   has_many :follower_relations, class_name: "Relationship", foreign_key: :followed_id
 
-  # has_many :followed_people, class_name: "User", through: :followed_relations, source: :followed
-  # has_many :followers, class_name: "User", through: :follower_relations, source: :follower
-
   validates_presence_of :full_name, :email
   validates_uniqueness_of :email
   
   def queue
     @queue ||= MyQueue.new(self)
   end
-
+  
+  def follows?(other_user)
+    followed_relations.map(&:followed_id).member?(other_user.id)
+  end
+  
+  def can_follow?(other_user)
+    other_user != self && !follows?(other_user)
+  end
+  
 end
