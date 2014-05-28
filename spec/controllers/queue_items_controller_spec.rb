@@ -3,10 +3,7 @@ require 'spec_helper'
 describe QueueItemsController do
 
   context "with an authenticated user" do
-    let(:current_user) {Fabricate(:user)}
-    before do
-      session[:user_id] = current_user.id
-    end
+    before { login_current_user }
     describe "GET #index" do
       
       before do
@@ -149,33 +146,23 @@ describe QueueItemsController do
   context "with an unauthenticated user" do
 
     describe "GET #index" do
-      it "redirects to the sign in page" do
-        get :index
-        expect(response).to redirect_to(sign_in_path)
+      it_behaves_like "require_sign_in" do 
+        let(:action) {get :index}
       end
     end
-
     describe "POST #create" do
-      it "redirects to the sign in page" do
-        video = Fabricate(:video)
-        post :create, {video_id: video.id}
-        expect(response).to redirect_to(sign_in_path)
+      it_behaves_like "require_sign_in" do 
+        let(:action) {post :create, {video_id: 1}}
       end
     end
-
     describe "DELETE #destroy" do
-      it "redirects to the sign in page" do
-        item = Fabricate(:queue_item)
-        delete :destroy, {id: item.id}
-        expect(response).to redirect_to(sign_in_path)
+      it_behaves_like "require_sign_in" do 
+        let(:action) {delete :destroy, {id: 1}}
       end
     end
-    
     describe "PUT #update_queue" do
-      it "redirects to the sign in page" do
-        item = Fabricate(:queue_item)
-        put :update_queue, queue_items: {item.id => {position: 2}}
-        expect(response).to redirect_to(sign_in_path)
+      it_behaves_like "require_sign_in" do 
+        let(:action) {put :update_queue, queue_items: {1 => {position: 2}}}
       end
     end
   end

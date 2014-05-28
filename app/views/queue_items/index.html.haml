@@ -19,7 +19,7 @@
                 = fields_for "queue_items[]", item do |f|
                   %tr
                     %td
-                      = f.text_field :position, label: '', class: 'form-control'
+                      = f.text_field :position, label: '', class: 'form-control', data: {video_id: item.video.id}
                     %td
                       = link_to item.video_title, video_path(item.video)
                     %td
