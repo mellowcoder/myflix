@@ -10,6 +10,10 @@ class MyQueue
     @items ||= owner.queue_items
   end
   
+  def count
+    items.count
+  end
+  
   def video_exists_in_queue?(video)
     items.map(&:video).include?(video)
   end
