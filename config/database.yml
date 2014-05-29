@@ -1,19 +1,18 @@
 
 default: &default
   adapter: postgresql
-  user: rails
+  user: <%= Rails.application.secrets.database_user %>
+  password: <%= Rails.application.secrets.database_password %>
   pool: 5
   timeout: 5000
 
 development:
   <<: *default
   database: myflix_development
-  password: sun4fun
 
 test:
   <<: *default
   database: myflix_test
-  password: sun4fun
   
 production:
   <<: *default
