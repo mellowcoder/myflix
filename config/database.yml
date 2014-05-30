@@ -1,6 +1,7 @@
 
 default: &default
   adapter: postgresql
+  encoding: unicode
   user: <%= Rails.application.secrets.database_user %>
   password: <%= Rails.application.secrets.database_password %>
   pool: 5
@@ -17,4 +18,3 @@ test:
 production:
   <<: *default
   database: myflix_production
-
