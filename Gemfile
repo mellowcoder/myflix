@@ -11,6 +11,7 @@ gem 'uglifier'
 gem 'jquery-rails'
 gem 'pg', '~> 0.17.1'
 gem 'bcrypt', '~> 3.1.7'
+gem 'rack-timeout', '~> 0.0.4'
 
 group :development do
   gem 'pry-nav'
@@ -19,10 +20,11 @@ group :development do
   gem "binding_of_caller"
   gem 'spring', '~> 1.1.3'
   gem 'spring-commands-rspec', '~> 1.0.2'
+  gem 'letter_opener', '~> 1.2.0'
 end
 
 group :development, :test do
-  gem 'pry'
+  gem 'pry', '~> 0.9.12.6'
   gem 'rspec-rails'
 end
 
@@ -31,10 +33,10 @@ group :test do
   gem 'simplecov', '~> 0.8.2'
   gem 'fabrication', '~> 2.11.2'
   gem 'faker', '~> 1.3.0'
+  gem 'launchy', '~> 2.4.2'
   gem 'capybara', '~> 2.1.0'
   gem 'capybara-webkit', '~> 1.1.1'
   gem 'database_cleaner', '~> 1.3.0'
-  gem 'launchy', '~> 2.4.2'
 end
 
 group :production do

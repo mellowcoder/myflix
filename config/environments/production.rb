@@ -17,4 +17,13 @@ Myflix::Application.configure do
   config.i18n.fallbacks = true
 
   config.active_support.deprecation = :notify
+  
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:              'node62.mtl.net.vexxhost.com',
+    port:                 465,
+    user_name:            Rails.application.secrets.smtp_username,
+    password:             Rails.application.secrets.smtp_password,
+    authentication:       'plain',
+    enable_starttls_auto: true  }
 end
