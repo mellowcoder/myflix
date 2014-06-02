@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :followed_relations, class_name: "Relationship", foreign_key: :follower_id
   has_many :follower_relations, class_name: "Relationship", foreign_key: :followed_id
 
-  validates_presence_of :full_name, :email
+  validates_presence_of :full_name, :email, :password
   validates_uniqueness_of :email
   
   def queue
@@ -21,4 +21,13 @@ class User < ActiveRecord::Base
     other_user != self && !follows?(other_user)
   end
   
+  def set_password_reset_token
+    update_attribute(:password_reset_token, SecureRandom.urlsafe_base64(36))
+  end
+  
+  def reset_password(new_password)
+    self.password = new_password
+    self.password_reset_token = nil
+    self.save
+  end
 end

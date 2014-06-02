@@ -26,4 +26,6 @@ Myflix::Application.configure do
     password:             Rails.application.secrets.smtp_password,
     authentication:       'plain',
     enable_starttls_auto: true  }
+    
+    config.action_mailer.default_url_options = { host: 'mark-flix.herokuapp.com' }
 end
