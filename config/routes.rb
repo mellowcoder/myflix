@@ -11,6 +11,7 @@ Myflix::Application.routes.draw do
   
   
   get 'register', to: 'users#new'
+  get 'register/:id', to: 'users#new'
   resources :users, only: [:create, :show]
   
   get 'sign_in', to: 'sessions#new'
@@ -29,6 +30,9 @@ Myflix::Application.routes.draw do
   get 'forgot_password_confirmation', to: 'forgot_passwords#confirmation'
   get 'invalid_token', to: 'forgot_passwords#invalid_token'
   resources :forgot_passwords, only: [:create, :edit, :update]
+  
+  get 'invite_confirmed', to: 'invites#confirmation'
+  resources :invites, only: [:new, :create]
   
   get 'ui(/:action)', controller: 'ui'
 end
