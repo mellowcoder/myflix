@@ -35,17 +35,17 @@ describe UsersController do
     end
     it "assigns @user includes the invite if a valid invite token is provided" do
       invite = Fabricate(:invite)
-      get :new, id: invite.token
+      get :new, token: invite.token
       expect(assigns(:user).registration_invite).to eq(invite)
     end
     it "assigns @user includes the email address if a valid invite token is provided" do
       invite = Fabricate(:invite)
-      get :new, id: invite.token
+      get :new, token: invite.token
       expect(assigns(:user).email).to eq(invite.email)
     end
 
     it "does not assigns @invite if the included token invalid" do
-      get :new, id: 'xyz'
+      get :new, token: 'xyz'
       expect(assigns(:user).registration_invite).to be_blank
     end
     

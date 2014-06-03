@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   end
 
   def new
-    invite_token = params[:id]
+    invite_token = params[:token]
     @user = User.new(params_from_invite(invite_token))
   end
   

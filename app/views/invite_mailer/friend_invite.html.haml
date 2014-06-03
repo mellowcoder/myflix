@@ -9,7 +9,7 @@
       %p Message: #{@invite.message}
       %p 
         Please go to the following link to create your own MyFlix Account.
-        %a{href: url_for(register_url+"/#{@invite.token}")} Register
+        %a{href: url_for(register_with_invite_token_url(token: @invite.token))} Register
 
     %footer
       &copy 2014 MyFLiX
