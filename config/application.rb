@@ -11,6 +11,7 @@ module Myflix
     config.active_support.escape_html_entities_in_json = true
 
     config.assets.enabled = true
+    config.assets.initialize_on_precompile = false
     config.generators do |g|
       g.orm :active_record
       g.template_engine :haml

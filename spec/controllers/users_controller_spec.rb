@@ -36,6 +36,7 @@ describe UsersController do
   end
   
   describe "POST #create" do
+    after {ActionMailer::Base.deliveries.clear}
     context "valid input" do
       before {post :create, user: Fabricate.attributes_for(:user)}
       it "creates a new user" do
@@ -44,6 +45,22 @@ describe UsersController do
       it "redirects to the sign in page" do
         expect(response).to redirect_to(:sign_in)
       end
+      
+      it "sends a welcome email when a new user is created" do
+        expect(ActionMailer::Base.deliveries).to_not be_empty
+      end
+      
+      it "sends the email to the new users email address" do
+        invite_email = ActionMailer::Base.deliveries.last
+        expect(invite_email.to[0]).to eq(User.last.email)
+      end
+      
+      it "sends a welcome email with the users full_name in the body" do
+        invite_email = ActionMailer::Base.deliveries.last
+        expect(invite_email.body).to include(User.last.full_name)
+      end
+      
+      
     end
     
     context "invalid input" do
@@ -57,6 +74,10 @@ describe UsersController do
       it "assigns @user" do
         expect(assigns(:user)).to be_a_new(User)
       end
+      it "does not send a welcome email" do
+        expect(ActionMailer::Base.deliveries).to be_empty
+      end
+      
     end
   end
   

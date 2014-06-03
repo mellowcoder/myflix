@@ -1,0 +1,17 @@
+%html(lang="en-US")
+  %body
+    %header
+      %h1 Welcome to MyFlix!
+    %section.content.clearfix
+      %p Hi #{@user.full_name}
+      
+      %p 
+        Thanks for signing up to use the My Flix App. 
+        We are sure you are going to love the service.
+      
+      %p 
+        Please visit the site at the following URL:
+        %a{href: @url}= @url
+
+    %footer
+      &copy 2014 MyFLiX
