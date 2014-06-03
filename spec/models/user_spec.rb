@@ -7,6 +7,8 @@ describe User do
   it {should have_many(:reviews).order("created_at desc")}
   it {should have_many(:followed_relations)}
   it {should have_many(:follower_relations)}
+  it {should have_many(:invites)}
+  it {should belong_to(:registration_invite)}
   
   describe "queue" do
     it "is an instance of My Queue" do

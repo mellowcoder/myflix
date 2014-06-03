@@ -6,7 +6,8 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = User.new
+    invite = get_invite(params[:id])
+    @user = User.new(registration_invite: invite)
   end
   
   def create
@@ -23,7 +24,10 @@ class UsersController < ApplicationController
   private
   
   def user_params
-    params.require(:user).permit(:full_name, :email, :password)
+    params.require(:user).permit(:full_name, :email, :password, :invite_id)
   end
   
+  def get_invite(token)
+    Invite.find_by_token(token) if token
+  end
 end
