@@ -1,6 +1,6 @@
 class Invite < ActiveRecord::Base
   belongs_to :user
-  validates_presence_of :email, :name, :user
+  validates_presence_of :email, :name, :message, :user
   
   before_create :generate_token
   
