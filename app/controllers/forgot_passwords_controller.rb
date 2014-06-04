@@ -4,7 +4,7 @@ class ForgotPasswordsController < ApplicationController
     user = User.where(email: params[:email]).first
     if user
       user.set_password_reset_token
-      UserMailer.reset_password_email(user).deliver
+      UserMailer.delay.reset_password_email(user.id)
       redirect_to forgot_password_confirmation_path
     else
       flash[:error] = "Invalid email address"

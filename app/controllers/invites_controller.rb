@@ -8,7 +8,7 @@ class InvitesController < ApplicationController
   def create
     @invite = current_user.invites.new(invite_params)
     if @invite.save
-      InviteMailer.friend_invite(@invite).deliver
+      InviteMailer.delay.friend_invite(@invite.id)
       redirect_to invite_confirmed_path
     else
       render :new
