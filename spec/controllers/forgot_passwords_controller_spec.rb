@@ -3,7 +3,7 @@ require 'spec_helper'
 describe ForgotPasswordsController do
 
   describe "POST #create" do
-    after {ActionMailer::Base.deliveries.clear}
+    before {ActionMailer::Base.deliveries.clear}
     let(:forgetful_steve) {Fabricate(:user)}
     context "for a valid email" do
       before {post :create, email: forgetful_steve.email}

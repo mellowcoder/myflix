@@ -12,6 +12,7 @@ gem 'jquery-rails'
 gem 'pg', '~> 0.17.1'
 gem 'bcrypt', '~> 3.1.7'
 gem 'rack-timeout', '~> 0.0.4'
+gem 'sidekiq', '~> 3.1.3'
 
 group :development do
   gem 'pry-nav'
@@ -37,6 +38,7 @@ group :test do
   gem 'capybara', '~> 2.1.0'
   gem 'capybara-webkit', '~> 1.1.1'
   gem 'database_cleaner', '~> 1.3.0'
+  gem 'capybara-email', '~> 2.2.0'
 end
 
 group :production do
