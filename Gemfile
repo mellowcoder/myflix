@@ -44,5 +44,6 @@ end
 group :production do
   gem 'rails_12factor'
   gem 'unicorn'
+  gem 'sentry-raven', '~> 0.9.1'
 end
 
