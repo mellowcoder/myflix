@@ -13,7 +13,6 @@ require 'paratrooper'
      deployment = Paratrooper::Deploy.new("mark-flix") do |deploy|
        deploy.tag              = 'production',
        deploy.match_tag        = 'staging',
-       deploy.maintenance_mode = !ENV['NO_MAINTENANCE']
      end
 
      deployment.deploy
