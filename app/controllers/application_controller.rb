@@ -7,10 +7,6 @@ class ApplicationController < ActionController::Base
     redirect_to sign_in_path unless current_user
   end
 
-  def require_admin
-    redirect_to home_path unless current_user.admin?
-  end
-  
   def current_user
     User.find(session[:user_id]) if session[:user_id]
   end
