@@ -1,5 +1,4 @@
-class InvitesController < ApplicationController
-  before_action :require_user
+class InvitesController < AuthenticationController
   
   def new
     @invite = Invite.new(message: 'Please join this really cool site!')
