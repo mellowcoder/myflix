@@ -2,37 +2,24 @@
   .container
     .row
       .col-md-10.col-md-offset-1
-        %form.form-horizontal
+        = bootstrap_form_for [:admin, @video], html: {class: 'form-horezontal'} do |f|
           %ul.nav.nav-tabs
             %li
-              %a(href="/ui/admin_views_payments") Recent Payments
+              %a(href="") Recent Payments
             %li.active
               %a(href="") Add a New Video
           %br
-          %fieldset
+          %fieldset.col-sm-9.col-md-offset-1
+            = f.text_field :title
+            = f.select :category_id, options_for_select(Category.all.map{|category| [category.name, category.id]})
+            = f.text_area :description, rows: 8
             .form-group
-              %label.control-label.col-sm-3 Title
-              .col-sm-3
-                %input.form-control(type="text")
+              %label.control-label Large Cover
+              %col.btn.btn-file
+                %input.form-control(type="file")
             .form-group
-              %label.control-label.col-sm-3 Category
-              .col-sm-6
-                %select.form-control
-            .form-group
-              %label.control-label.col-sm-3 Description
-              .col-sm-6
-                %textarea.form-control(rows="8")
-            .form-group
-              %label.control-label.col-sm-3 Large Cover
-              .col-sm-6
-                %col.btn.btn-file
-                  %input.form-control(type="file")
-            .form-group
-              %label.control-label.col-sm-3 Small Cover
-              .col-sm-6
-                %col.btn.btn-file
-                  %input.form-control(type="file")
-
-          %fieldset.actions.form-group
-            .col-sm-6.col-md-offset-3
-              %input(type="submit" value="Add Video" class="btn btn-default")
+              %label.control-label Small Cover
+              %col.btn.btn-file
+                %input.form-control(type="file")
+          %fieldset.actions.form-group.col-sm-9.col-md-offset-1
+            %input(type="submit" value="Add Video" class="btn btn-default")
