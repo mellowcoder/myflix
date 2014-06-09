@@ -17,7 +17,8 @@ gem 'paratrooper', '~> 2.4.0'
 gem 'fog', '~> 1.22.1'
 gem 'carrierwave', '~> 0.10.0'
 gem 'mini_magick', '~> 3.7.0'
-
+gem 'stripe', '~> 1.13.0'
+ 
 group :development do
   gem 'pry-nav'
   gem 'thin'
