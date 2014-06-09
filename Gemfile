@@ -13,6 +13,7 @@ gem 'pg', '~> 0.17.1'
 gem 'bcrypt', '~> 3.1.7'
 gem 'rack-timeout', '~> 0.0.4'
 gem 'sidekiq', '~> 3.1.3'
+gem 'paratrooper', '~> 2.4.0'
 
 group :development do
   gem 'pry-nav'
@@ -44,5 +45,6 @@ end
 group :production do
   gem 'rails_12factor'
   gem 'unicorn'
+  gem 'sentry-raven', '~> 0.9.1'
 end
 
