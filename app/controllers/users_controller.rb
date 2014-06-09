@@ -13,6 +13,13 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      Stripe.api_key = "sk_test_3ESjqkpyFFAQeCHlV0xwzACe"
+      charge = Stripe::Charge.create(
+        amount: 999, # amount in cents, again
+        currency: "usd",
+        card: params[:stripeToken],
+        description: "MyFlix Sign up charge for #{@user.email}"
+        )
       UserMailer.delay.welcome_email(@user.id)
       redirect_to sign_in_path
     else

@@ -15,6 +15,8 @@ gem 'rack-timeout', '~> 0.0.4'
 gem 'sidekiq', '~> 3.1.3'
 gem 'paratrooper', '~> 2.4.0'
 
+gem 'stripe', '~> 1.13.0'
+ 
 group :development do
   gem 'pry-nav'
   gem 'thin'
