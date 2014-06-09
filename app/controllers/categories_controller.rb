@@ -1,4 +1,4 @@
-class CategoriesController < ApplicationController
+class CategoriesController < AuthenticationController
   before_action :set_category, only: [:show, :edit, :update, :destroy]
   
   def show

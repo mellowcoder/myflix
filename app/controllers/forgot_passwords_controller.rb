@@ -20,8 +20,7 @@ class ForgotPasswordsController < ApplicationController
   def update
     @user = User.where(password_reset_token: params[:id]).first
     if @user
-      @user.reset_password(params[:password])
-      if @user.errors.blank?
+      if @user.reset_password(params[:password]) && @user.errors.blank?
         flash[:success] = "Your password was successfully reset"
         redirect_to sign_in_path
       else

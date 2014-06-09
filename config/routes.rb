@@ -34,5 +34,9 @@ Myflix::Application.routes.draw do
   get 'invite_confirmed', to: 'invites#confirmation'
   resources :invites, only: [:new, :create]
   
+  namespace 'admin' do
+    resources :videos, only: [:new, :create]
+  end
+  
   get 'ui(/:action)', controller: 'ui'
 end

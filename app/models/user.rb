@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   has_many :follower_relations, class_name: "Relationship", foreign_key: :followed_id
   has_many :invites
   belongs_to  :registration_invite, class_name: "Invite",  foreign_key: :invite_id
-  validates_presence_of :full_name, :email, :password
+  validates_presence_of :full_name, :email
   validates_uniqueness_of :email
   
   after_create :setup_invite_relationship, if: :registration_invite?
@@ -29,9 +29,13 @@ class User < ActiveRecord::Base
   end
   
   def reset_password(new_password)
-    self.password = new_password
-    self.password_reset_token = nil
-    self.save
+    if new_password.blank?
+      self.errors.add(:password, "can not be blank")
+    else
+      self.password = new_password
+      self.password_reset_token = nil
+      self.save
+    end
   end
   
   private
