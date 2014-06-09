@@ -11,13 +11,13 @@ drama = Category.create({name: 'TV Dramas'})
 
 3.times do |num|
   Video.create([{title: "South Park #{num}", description: 'South Park is an American adult animated sitcom created by Trey Parker and Matt Stone for the Comedy Central television network.',
-               small_cover_url: 'covers/south_park.jpg', large_cover_url: 'covers/south_park_large.jpg', category: comedy},
+               category: comedy},
               {title: "Family Guy #{num}", description: 'Family Guy is an American adult animated sitcom created by Seth MacFarlane for the Fox Broadcasting Company',
-               small_cover_url: 'covers/family_guy.jpg', large_cover_url: 'covers/family_guy_large.jpg', category: comedy},
+               category: comedy},
               {title: "Futurama #{num}",  description: 'Futurama is an American adult animated science fiction sitcom created by Matt Groening and developed by Groening and David X. Cohen for the Fox Broadcasting Company',
-               small_cover_url: 'covers/futurama.jpg', large_cover_url: 'covers/futurama_large.jpg', category: comedy},
+               category: comedy},
               {title: "Monk #{num}",  description: 'Monk is an American comedy-drama detective mystery television series created by Andy Breckman and starring Tony Shalhoub as the eponymous character, Adrian Monk.',
-               small_cover_url: 'covers/monk.jpg', large_cover_url: 'covers/monk_large.jpg', category: drama}])
+               category: drama}])
 end
 
 ebert = User.create(email: 'rebert@critics.com', full_name: 'Roger Ebert', password: 'secret')

@@ -6,10 +6,10 @@ feature "The user is able to interact with the social netwoking features of the 
 
   scenario "The user is able to follow and unfullow other users" do
     comedy = Fabricate(:category, name: 'Comedy')
-    monk1 = Fabricate(:video, title: "Monk 1", small_cover_url: 'covers/monk.jpg', large_cover_url: 'covers/monk_large.jpg', category: comedy)
-    monk2 = Fabricate(:video, title: "Monk 2", small_cover_url: 'covers/monk.jpg', large_cover_url: 'covers/monk_large.jpg', category: comedy)
-    futurama1 = Fabricate(:video, title: "Futurama 1", small_cover_url: 'covers/futurama.jpg', large_cover_url: 'covers/futurama_large.jpg', category: comedy)
-    futurama2 = Fabricate(:video, title: "Futurama 2", small_cover_url: 'covers/futurama.jpg', large_cover_url: 'covers/futurama_large.jpg', category: comedy)
+    monk1 = Fabricate(:video, title: "Monk 1", category: comedy)
+    monk2 = Fabricate(:video, title: "Monk 2", category: comedy)
+    futurama1 = Fabricate(:video, title: "Futurama 1", category: comedy)
+    futurama2 = Fabricate(:video, title: "Futurama 2", category: comedy)
     Fabricate(:review, user: william, video: futurama1)
     
     feature_sign_in(steve)
