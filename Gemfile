@@ -14,6 +14,9 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'rack-timeout', '~> 0.0.4'
 gem 'sidekiq', '~> 3.1.3'
 gem 'paratrooper', '~> 2.4.0'
+gem 'fog', '~> 1.22.1'
+gem 'carrierwave', '~> 0.10.0'
+gem 'mini_magick', '~> 3.7.0'
 
 group :development do
   gem 'pry-nav'
