@@ -14,13 +14,16 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       if !Rails.env.test?
-        Stripe.api_key = Rails.application.secrets.stripe_secret_key
-        charge = Stripe::Charge.create(
-          amount: 999, # amount in cents, again
-          currency: "usd",
-          card: params[:stripeToken],
-          description: "MyFlix Sign up charge for #{@user.email}"
-          )
+        begin
+          Stripe.api_key = Rails.application.secrets.stripe_secret_key
+          charge = Stripe::Charge.create(
+            amount: 999, # amount in cents, again
+            currency: "usd",
+            card: params[:stripeToken],
+            description: "MyFlix Sign up charge for #{@user.email}")
+        rescue Stripe::CardError => error
+          flash[:error] = "Your account was created but there was a credit card error: #{error.message}"
+        end
       end
       UserMailer.delay.welcome_email(@user.id)
       redirect_to sign_in_path
