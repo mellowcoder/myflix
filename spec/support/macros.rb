@@ -26,7 +26,7 @@ end
 
 def stub_stripe_charge_as_unsuccessful
   charge = double('charge')
-  charge.stub(:successful?).and_return(true)
+  charge.stub(:successful?).and_return(false)
   charge.stub(:error_message).and_return("Your card was declined.")
   StripeWrapper::Charge.stub(:create).and_return(charge)
 end

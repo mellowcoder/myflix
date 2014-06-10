@@ -11,15 +11,14 @@ class UsersController < ApplicationController
   end
   
   def create
-    @user = User.new(user_params)
-    if @user.save
-      charge = StripeWrapper::Charge.create(amount: 999, card: params[:stripeToken], description: "MyFlix Sign up charge for #{@user.email}")
-      if !charge.successful?
-        flash[:error] = "Your account was created but there was a credit card error: #{charge.error_message}"
-      end
-      UserMailer.delay.welcome_email(@user.id)
+    registration = Registration.new(user_params, params[:stripeToken])
+    if registration.save
+      UserMailer.delay.welcome_email(registration.user.id)
+      flash[:success] = "Thank you for registering with my flix"
       redirect_to sign_in_path
     else
+      @user = registration.user
+      flash[:error] = @user.errors[:credit_card].empty? ? "Error Processing your registration" : @user.errors[:credit_card].first
       render :new
     end
   end
