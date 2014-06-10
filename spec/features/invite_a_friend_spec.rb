@@ -48,6 +48,7 @@ feature "Invite a friend" do
   end
 
   def louis_registers
+    stub_stripe_charge_as_successful
     fill_in('user[full_name]', :with => 'Louis C.K.')
     fill_in('user[password]', :with => 'secret')
     click_button "Sign Up"

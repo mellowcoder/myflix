@@ -10,6 +10,7 @@ require 'capybara/rspec'
 require 'shoulda-matchers'
 require 'capybara/email/rspec'
 require 'sidekiq/testing/inline'
+require 'vcr'
 
 # Sidekiq::Testing.inline!
 
@@ -21,7 +22,6 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
-require 'vcr'
 
 VCR.configure do |c|
   c.cassette_library_dir = 'spec/cassettes'
