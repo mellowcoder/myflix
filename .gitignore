@@ -15,5 +15,6 @@
 /tmp
 /public/uploads
 /coverage
+/spec/cassettes
 
 .DS_Store

@@ -52,7 +52,11 @@ describe UsersController do
   end
   
   describe "POST #create" do
-    before {ActionMailer::Base.deliveries.clear}
+    before do
+      ActionMailer::Base.deliveries.clear
+      stub_stripe_charge_as_successful
+    end
+    
     context "valid input" do
       before {post :create, user: Fabricate.attributes_for(:user)}
       it "creates a new user" do

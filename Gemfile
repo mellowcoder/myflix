@@ -44,6 +44,9 @@ group :test do
   gem 'capybara-webkit', '~> 1.1.1'
   gem 'database_cleaner', '~> 1.3.0'
   gem 'capybara-email', '~> 2.2.0'
+  gem 'vcr', '~> 2.9.2'
+  gem 'webmock', '~> 1.18.0'
+  gem 'selenium-webdriver', '~> 2.42.0'
 end
 
 group :production do
