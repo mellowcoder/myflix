@@ -44,18 +44,18 @@ describe Video do
       review1 = Fabricate(:review, video: video, rating: 2)
       review2 = Fabricate(:review, video: video, rating: 4)
       review3 = Fabricate(:review, video: video, rating: 5)
-      expect(video.average_rating).to eq('3.7')
+      expect(video.average_rating.to_s).to eq('3.7')
     end
     
     it "returns the reviews rating if there is only one review" do
       video = Fabricate(:video)
       review1 = Fabricate(:review, video: video, rating: 2)
-      expect(video.average_rating).to eq('2.0')
+      expect(video.average_rating.to_s).to eq('2.0')
     end
     
     it "returns and empty string if there are no reviews" do
       video = Fabricate(:video)
-      expect(video.average_rating).to eq('')
+      expect(video.average_rating.to_s).to eq('')
     end
   end
 end
