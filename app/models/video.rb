@@ -13,8 +13,7 @@ class Video < ActiveRecord::Base
   end
   
   def average_rating
-    return '' if reviews.count == 0
-    reviews.average(:rating).round(1).to_s
+    reviews.average(:rating).round(1) if reviews.count > 0
   end
   
 end

@@ -50,4 +50,20 @@ describe User do
         
   end 
   
+  describe "save with an associated invite" do
+    it "has the new user follow the friend" do
+      friend = Fabricate(:user)
+      invite = Fabricate(:invite, user: friend)
+      User.new(Fabricate.attributes_for(:user, invite_id: invite.id)).save
+      expect(User.last.follows?(friend)).to be_true
+    end
+    it "has the friend follow the new user" do
+      friend = Fabricate(:user)
+      invite = Fabricate(:invite, user: friend)
+      User.new(Fabricate.attributes_for(:user, invite_id: invite.id)).save
+      expect(friend.follows?(User.last)).to be_true
+    end
+  end
+  
+  
 end

@@ -7,6 +7,7 @@ class ReviewsController < AuthenticationController
       redirect_to @video
     else
       @reviews = @video.reviews.reload
+      @video = @video.decorate
       render 'videos/show'
     end
   end
