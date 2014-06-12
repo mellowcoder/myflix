@@ -43,7 +43,6 @@ describe UsersController do
       get :new, token: invite.token
       expect(assigns(:user).email).to eq(invite.email)
     end
-
     it "does not assigns @invite if the included token invalid" do
       get :new, token: 'xyz'
       expect(assigns(:user).registration_invite).to be_blank
@@ -53,59 +52,38 @@ describe UsersController do
   
   describe "POST #create" do
     before do
-      ActionMailer::Base.deliveries.clear
       stub_stripe_charge_as_successful
     end
     
     context "valid input" do
-      before {post :create, user: Fabricate.attributes_for(:user)}
-      it "creates a new user" do
-        expect(User.count).to eq(1)
-      end
       it "redirects to the sign in page" do
+        post :create, user: Fabricate.attributes_for(:user)
         expect(response).to redirect_to(:sign_in)
       end
-      it "sends a welcome email when a new user is created" do
-        expect(ActionMailer::Base.deliveries).to_not be_empty
+      it "delegates to the registration object and returns true" do
+        Registration.any_instance.should_receive(:save).and_return(true)
+        post :create, user: Fabricate.attributes_for(:user)
+        
       end
-      it "sends the email to the new users email address" do
-        invite_email = ActionMailer::Base.deliveries.last
-        expect(invite_email.to[0]).to eq(User.last.email)
-      end
-      it "sends a welcome email with the users full_name in the body" do
-        invite_email = ActionMailer::Base.deliveries.last
-        expect(invite_email.body).to include(User.last.full_name)
-      end
-     end
-
-     context "valid input and the new user has an associated registration_invite" do
-       let(:friend) {Fabricate(:user)}
-       before do
-         invite = Fabricate(:invite, user: friend)
-         post :create, user: Fabricate.attributes_for(:user, invite_id: invite.id)
-       end
-       it "has the new user follow the friend" do
-         expect(User.last.follows?(friend)).to be_true
-       end
-       it "has the friend follow the new user" do
-       end
+      
      end
     
     context "invalid input" do
       before {post :create, user: {email: "test@example.com", full_name: "Test User", password: ""}}
       it "does not create a User" do
+        post :create, user: {email: "test@example.com", full_name: "Test User", password: ""}
         expect(User.count).to eq(0)
       end
       it "renders the new template" do
         expect(response).to render_template(:new)
       end
       it "assigns @user" do
+        post :create, user: {email: "test@example.com", full_name: "Test User", password: ""}
         expect(assigns(:user)).to be_a_new(User)
       end
-      it "does not send a welcome email" do
-        expect(ActionMailer::Base.deliveries).to be_empty
-      end
-      
+      it "delegates to the registration object and returns false" do
+        Registration.any_instance.should_receive(:save).and_return(false)
+        post :create, user: {email: "test@example.com", full_name: "Test User", password: ""}      end
     end
   end
   
