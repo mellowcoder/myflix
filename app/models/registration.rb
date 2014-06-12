@@ -11,7 +11,9 @@ class Registration
   def save
     ActiveRecord::Base.transaction do
       @user.save!
-      return charge_card!
+      charge_card!
+      send_welcome_email
+      return true
     end
   rescue
     return false
@@ -32,6 +34,10 @@ class Registration
       raise ActiveRecord::Rollback, charge.error_message
       return false
     end
+  end
+  
+  def send_welcome_email
+    UserMailer.delay.welcome_email(user.id)
   end
   
 end

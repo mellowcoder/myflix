@@ -13,7 +13,6 @@ class UsersController < ApplicationController
   def create
     registration = Registration.new(user_params, params[:stripeToken])
     if registration.save
-      UserMailer.delay.welcome_email(registration.user.id)
       flash[:success] = "Thank you for registering with my flix"
       redirect_to sign_in_path
     else
