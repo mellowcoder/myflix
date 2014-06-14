@@ -3,7 +3,7 @@ require 'spec_helper'
 describe StripeWrapper::Charge, :vcr do
   before {StripeWrapper.set_api_key}
   let(:token) {Stripe::Token.create(:card => {:number => card_number,:exp_month => Time.now.month,:exp_year => Time.now.year,:cvc => "314"}).id}
-  context "with valid credit card" do
+  context "charge with valid credit card" do
     let(:card_number) {4242424242424242}
     it "will return true for successfull?" do
       charge = StripeWrapper::Charge.create(amount: 999, card: token)
@@ -11,7 +11,7 @@ describe StripeWrapper::Charge, :vcr do
     end
   end
   
-  context "with invalid credit card" do
+  context "charge with invalid credit card" do
     let(:card_number) {4000000000000002}
     it "will return false for successfull?" do
       charge = StripeWrapper::Charge.create(amount: 999, card: token)
@@ -26,3 +26,28 @@ describe StripeWrapper::Charge, :vcr do
   
 end
 
+describe StripeWrapper::CustomerWithPlan, :vcr do
+  before {StripeWrapper.set_api_key}
+  let(:token) {Stripe::Token.create(:card => {:number => card_number,:exp_month => Time.now.month,:exp_year => Time.now.year,:cvc => "314"}).id}
+
+  context "New customer with plan and valid credit card" do
+    let(:card_number) {4242424242424242}
+    it "will return true for successfull?" do
+      customer = StripeWrapper::CustomerWithPlan.create(card: token, myflix_reference: "MyFlix_Customer_22")
+      expect(customer.successful?).to be_true
+    end
+  end
+  
+  context "New customer with plan and invalid credit card" do
+    let(:card_number) {4000000000000002}
+    it "will return false for successfull?" do
+      customer = StripeWrapper::CustomerWithPlan.create(card: token, myflix_reference: "MyFlix_Customer_22")
+      expect(customer.successful?).to be_false
+    end
+    it "will contain an error message" do
+      customer = StripeWrapper::CustomerWithPlan.create(card: token, myflix_reference: "MyFlix_Customer_22")
+      expect(customer.error_message).to eq("Your card was declined.")
+    end
+  end 
+  
+end

@@ -52,7 +52,7 @@ describe UsersController do
   
   describe "POST #create" do
     before do
-      stub_stripe_charge_as_successful
+      stub_stripe_customer_with_plan_as_successful
     end
     
     context "valid input" do

@@ -8,7 +8,7 @@ describe Registration do
     end
     
     context "with valid inputs" do      
-      before {stub_stripe_charge_as_successful}
+      before {stub_stripe_customer_with_plan_as_successful}
       let(:reg) {Registration.new(Fabricate.attributes_for(:user), 'stripe_token')}
       it "creates a new user" do
         reg.save
@@ -38,7 +38,7 @@ describe Registration do
     end
 
     context "with invalid user inputs" do
-      before {stub_stripe_charge_as_successful}
+      before {stub_stripe_customer_with_plan_as_successful}
       let(:reg) {Registration.new(Fabricate.attributes_for(:user, email: ''), 'stripe_token')}
       it "does not create a user" do
         reg.save
@@ -59,7 +59,7 @@ describe Registration do
     end
     
     context "with invalid credit card inputs" do
-      before {stub_stripe_charge_as_unsuccessful}
+      before {stub_stripe_customer_with_plan_as_unsuccessful}
       let(:reg) {Registration.new(Fabricate.attributes_for(:user), 'stripe_token')}
       it "does not create a user" do
         reg.save
