@@ -30,3 +30,16 @@ def stub_stripe_charge_as_unsuccessful
   charge.stub(:error_message).and_return("Your card was declined.")
   StripeWrapper::Charge.stub(:create).and_return(charge)
 end
+
+def stub_stripe_customer_with_plan_as_successful
+  customer = double('customer')
+  customer.stub(:successful?).and_return(true)
+  StripeWrapper::CustomerWithPlan.stub(:create).and_return(customer)
+end
+
+def stub_stripe_customer_with_plan_as_unsuccessful
+  customer = double('charge')
+  customer.stub(:successful?).and_return(false)
+  customer.stub(:error_message).and_return("Your card was declined.")
+  StripeWrapper::CustomerWithPlan.stub(:create).and_return(customer)
+end
