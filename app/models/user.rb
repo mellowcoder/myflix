@@ -38,6 +38,10 @@ class User < ActiveRecord::Base
     end
   end
   
+  def deactivate!
+    self.update_attribute(:active, false)
+  end
+  
   private
   
   def setup_invite_relationship    

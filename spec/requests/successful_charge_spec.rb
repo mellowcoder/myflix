@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe "Successful Charge" do
-  let(:event_data) do
+  let(:event_data) do 
     {
       "id" => "evt_104ETl4WCz9FSXwSTZJoastI",
       "created" => 1402927774,
@@ -59,6 +59,7 @@ describe "Successful Charge" do
     }
   end
   
+  
   it "creates a new payment record", :vcr do
     post "/stripe_events", event_data
     expect(Payment.count).to eq(1)
@@ -71,13 +72,13 @@ describe "Successful Charge" do
   end
   
   it "creates the payment with the correct amount", :vcr do
-    user = Fabricate(:user, stripe_customer_id: "cus_4ETl88MRyzYold")
+    Fabricate(:user, stripe_customer_id: "cus_4ETl88MRyzYold")
     post "/stripe_events", event_data
     expect(Payment.last.amount).to eq(999)
   end
   
   it "creates the payment with the stripe_reference_id", :vcr do
-    user = Fabricate(:user, stripe_customer_id: "cus_4ETl88MRyzYold")
+    Fabricate(:user, stripe_customer_id: "cus_4ETl88MRyzYold")
     post "/stripe_events", event_data
     expect(Payment.last.stripe_reference_id).to eq("ch_104ETl4WCz9FSXwSA2V3SUXz")
   end
