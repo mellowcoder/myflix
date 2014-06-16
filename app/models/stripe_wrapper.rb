@@ -48,6 +48,10 @@ module StripeWrapper
       @status == :success ? true : false
     end
     
+    def stripe_customer_id
+      successful? ? @response.id : nil
+    end
+    
     def error_message
       @response.message
     end

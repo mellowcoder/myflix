@@ -18,6 +18,7 @@ gem 'fog', '~> 1.22.1'
 gem 'carrierwave', '~> 0.10.0'
 gem 'mini_magick', '~> 3.7.0'
 gem 'stripe', '~> 1.13.0'
+gem 'stripe_event', '~> 1.1.0'
 gem 'draper', '~> 1.3.0'
 
 group :development do

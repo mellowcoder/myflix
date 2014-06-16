@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140609135307) do
+ActiveRecord::Schema.define(version: 20140616145238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,16 @@ ActiveRecord::Schema.define(version: 20140609135307) do
   end
 
   add_index "invites", ["user_id"], name: "index_invites_on_user_id", using: :btree
+
+  create_table "payments", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "amount"
+    t.string   "stripe_reference_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "payments", ["user_id"], name: "index_payments_on_user_id", using: :btree
 
   create_table "queue_items", force: true do |t|
     t.integer  "user_id"
@@ -73,6 +83,7 @@ ActiveRecord::Schema.define(version: 20140609135307) do
     t.string   "password_reset_token"
     t.integer  "invite_id"
     t.boolean  "admin"
+    t.string   "stripe_customer_id"
   end
 
   create_table "videos", force: true do |t|

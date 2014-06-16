@@ -38,5 +38,7 @@ Myflix::Application.routes.draw do
     resources :videos, only: [:new, :create]
   end
   
+  mount StripeEvent::Engine => '/stripe_events' # provide a custom path
+  
   get 'ui(/:action)', controller: 'ui'
 end
