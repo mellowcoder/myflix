@@ -12,6 +12,7 @@ class Registration
     ActiveRecord::Base.transaction do
       @user.save!
       create_customer_with_plan!
+      @user.update_attribute(:stripe_customer_id, @customer.stripe_customer_id)
       send_welcome_email
       return true
     end

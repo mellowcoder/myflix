@@ -14,6 +14,11 @@ describe Registration do
         reg.save
         expect(User.count).to eq(1)
       end
+      it "assigns the sprite customer number to the new usser" do
+        reg.save
+        expect(User.last.stripe_customer_id).to eq("test-customer-id")
+      end
+      
       it "charges the users card" do
         reg.save
         expect(reg.card_charged?).to be_true

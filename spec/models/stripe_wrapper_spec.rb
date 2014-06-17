@@ -36,6 +36,10 @@ describe StripeWrapper::CustomerWithPlan, :vcr do
       customer = StripeWrapper::CustomerWithPlan.create(card: token, myflix_reference: "MyFlix_Customer_22")
       expect(customer.successful?).to be_true
     end
+    it "will return the stripe customer id" do
+      customer = StripeWrapper::CustomerWithPlan.create(card: token, myflix_reference: "MyFlix_Customer_22")
+      expect(customer.stripe_customer_id).to_not be_empty
+    end
   end
   
   context "New customer with plan and invalid credit card" do

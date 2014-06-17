@@ -65,5 +65,13 @@ describe User do
     end
   end
   
+  describe "deactivate!" do
+    it "sets a users active field to false" do
+      user = Fabricate(:user)
+      user.deactivate!
+      expect(user.reload.active?).to be_false
+    end
+    
+  end
   
 end

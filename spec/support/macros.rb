@@ -34,6 +34,7 @@ end
 def stub_stripe_customer_with_plan_as_successful
   customer = double('customer')
   customer.stub(:successful?).and_return(true)
+  customer.stub(:stripe_customer_id).and_return("test-customer-id")
   StripeWrapper::CustomerWithPlan.stub(:create).and_return(customer)
 end
 

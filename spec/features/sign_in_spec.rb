@@ -16,4 +16,11 @@ feature "Sign in" do
     expect(page).to have_content 'Invalid email or password'
   end
   
+  scenario "as a user with a deactivated account" do
+    steve.deactivate!
+    feature_sign_in(steve)
+    expect(page).to have_content 'Your account has been deactivated'
+  end
+  
+  
 end

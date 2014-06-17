@@ -15,4 +15,12 @@ class UserMailer < ActionMailer::Base
       mail(to: @user.email, subject: 'Password Reset')
     end
   end
+  
+  def account_deactivated_email(user_id)
+    @user = User.where(id: user_id).first
+    if @user
+      mail(to: @user.email, subject: 'Account Deactivate')
+    end
+  end
+  
 end
